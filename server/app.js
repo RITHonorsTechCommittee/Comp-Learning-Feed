@@ -12,7 +12,7 @@ const RedisStore = require('connect-redis')(session);
 
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
-const dbURL = process.env.MONGODB_URI || 'mongodb://localhost/DomoMaker';
+const dbURL = process.env.MONGODB_URI || 'mongodb://localhost/CompLearningDB';
 
 mongoose.connect(dbURL, (err) => {
 	if(err){
@@ -45,7 +45,7 @@ app.use(bodyParser.urlencoded({
 
 app.use(session({
 	key: 'sessionid',
-	secret: 'Domo Arigato',
+	secret: 'Honors Tech is the shiz',
 	resave: true,
 	saveUninitialized: true,
 	store: new RedisStore({
