@@ -6,21 +6,56 @@ let CompPostModel = {};
 
 const convertId = mongoose.Types.ObjectId;
 const setName = (name) => _.escape(name).trim();
+const setDescription = (descrip) => _.escape(descrip).trim();
+const setLocation = (loc) => _.escape(loc).trim();
 
 const CompPostSchema = new mongoose.Schema({
-	name: {
+
+	// Title/info about the event
+	title: {
 		type: String,
 		required: true,
 		trim: true,
 		set: setName,
 	},
-
+	// Info about the event
+	description: {
+		type: String,
+		required: true,
+		trim: true,
+		set: setDescription,
+	},
+	// Timestamp - when the event starts
+	eventStart: {
+		type: Date,
+		required: true,
+		default: Date.now,
+	},
+	// Timestamp - when the event ends
+	eventEnd: {
+		type: Date,
+		required: true,
+		default: Date.now,
+	},
+	// Event location
+	location: {
+		type: String,
+		required: true,
+		trim: true,
+		set: setLocation,
+	},
+	// Tags for the event
+	tags: {
+		type: Array,
+		required: false,
+	},
+	// Assoc. user account
 	owner: {
 		type: mongoose.Schema.ObjectId,
 		required: true,
 		ref: 'Account',
 	},
-
+	// Metadata
 	createdData: {
 		type: Date,
 		default: Date.now,
@@ -37,8 +72,17 @@ CompPostSchema.statics.findByOwner = (ownerId, callback) => {
 		owner: convertId(ownerId),
 	};
 
-	return CompPostModel.find(search).select('name age').exec(callback);
+	return CompPostModel.find(search).exec(callback);
 };
+
+// NOT FULLY IMPLEMENTED
+CompPostSchema.statics.findByTag = (tag, callback) => {
+	const search = {
+		tag: [], //TODO: make this actually find the right tag
+	};
+
+	return CompPostModel.find(search).exec(callback);
+}
 
 CompPostModel = mongoose.model('CompPost', CompPostSchema);
 

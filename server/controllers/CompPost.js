@@ -15,7 +15,7 @@ const makerPage = (req, res) => {
 const makeCompPost = (req, res) => {
 
 	if(!req.body.name || !req.body.age){
-		return res.status(400).json({error: 'RAWR! Boh name and age are required.'});
+		return res.status(400).json({error: 'All fields are required.'});
 	}
 
 	const compPostData = {
@@ -31,8 +31,9 @@ const makeCompPost = (req, res) => {
 
 	compPostPromise.catch((err) => {
 		console.log(err);
+		// Not sure if this check is really necessary
 		if(err.code === 11000){
-			return res.status(400).json({error: 'CompPost already exists'});
+			return res.status(400).json({error: 'This post already exists'});
 		}
 
 		return res.status(400).json({error: 'An error occured'});
