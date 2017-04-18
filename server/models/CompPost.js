@@ -8,6 +8,8 @@ const convertId = mongoose.Types.ObjectId;
 const setName = (name) => _.escape(name).trim();
 const setDescription = (descrip) => _.escape(descrip).trim();
 const setLocation = (loc) => _.escape(loc).trim();
+const setEmail = (email) => _.escape(email).trim();
+const setPhoneNumber = (phone) => _.escape(phone).trim();
 
 const CompPostSchema = new mongoose.Schema({
 
@@ -43,6 +45,20 @@ const CompPostSchema = new mongoose.Schema({
 		required: true,
 		trim: true,
 		set: setLocation,
+	},
+	// Contact email
+	contactEmail: {
+		type: String,
+		required: true,
+		default: undefined,
+		set: setEmail,
+	},
+	// Contact phone number
+	contactPhone: {
+		type: String,
+		required: true,
+		default: undefined,
+		set: setPhoneNumber,
 	},
 	// Tags for the event
 	tags: {
