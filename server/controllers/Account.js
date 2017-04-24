@@ -2,11 +2,15 @@ const models = require('../models');
 const Account = models.Account;
 
 const loginPage = (req, res) => {
-  res.render('login');
+  res.render('login', {
+    title: 'Log in'
+  });
 };
 
 const signupPage = (req, res) => {
-  res.render('signup');
+  res.render('signup', {
+    title: 'Sign up'
+  });
 };
 
 const logout = (req, res) => {
